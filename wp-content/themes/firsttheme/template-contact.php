@@ -1,8 +1,8 @@
 <?php
-/**
- * Template Name : Page de contact
- * Template Post Type: post, page, product
- */
+/*
+Template Name : Page de contact
+Template Post Type: post, page, product
+*/
 
  get_header() ?>
 

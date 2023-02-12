@@ -6,17 +6,10 @@
 <?php } else {
   get_header();
 
-
     $projets = get_terms(['taxonomy' => 'projet', 'type']); ?>
 
-
     <ul class="nav nav-pills my-4">
-    <a href="<?= get_post_type_archive_link('post')?>" class="nav-link">Tous</a>
-        <?php foreach($projets as $projet): ?>
-        <li class="nav-item">
-            <a href="<?= get_term_link($projet) ?>" class="nav-link <?= is_tax('projet', $projet->term_id) ? 'active' : '' ?>"><?= $projet->name ?></a>
-        </li>
-        <?php endforeach; ?>
+        <?php require('parts/filter.php'); ?>
     </ul>
 
     <?php if (have_posts()) : ?>
