@@ -1,38 +1,34 @@
 <?php
 /*
-Template Name : Page de contact
-Template Post Type: post, page, product
-*/
+    Template Name: Contact Page
+    */
+get_header();
+?>
+<div style="text-align:center;">
+    <h1>
+        <?php
+        $title = get_field("test_title");
 
- get_header() ?>
+        if ($title) {
+            echo $title;
+        } else {
+            echo 'empty';
+        } ?>
+    </h1>
+    <p>
+        <?php
+        $desc = get_field("test_desc");
 
-<?php $projets = get_terms(['taxonomy' => 'projet', 'type']); ?>
+        if ($desc) {
+            echo $desc;
+        } else {
+            echo 'empty';
+        } ?>
+    </p>
 
-
-<ul class="nav nav-pills my-4">
-<a href="<?= get_post_type_archive_link('post')?>" class="nav-link">Tous</a>
-    <?php foreach($projets as $projet): ?>
-    <li class="nav-item">
-        <a href="<?= get_term_link($projet) ?>" class="nav-link <?= is_tax('projet', $projet->term_id) ? 'active' : '' ?>"><?= $projet->name ?></a>
-    </li>
-    <?php endforeach; ?>
-</ul>
-
-<?php if (have_posts()) : ?>
-    <div class="row">
-
-        </ créer une boucle pour afficher les articles>
-        <?php while (have_posts()) : the_post(); ?>
-            <div class="col-sm-4">
-                <?php require('parts/post.php'); ?>
-            </div>
-        <?php endwhile ?>
+    <div >
+        <?php the_content() ?>
     </div>
-
-    <?php the_posts_pagination(); ?>
-
-<?php else : ?>
-    <h1>Pas d'articles</h1>
-<?php endif; ?>
+</div>
 
 <?php get_footer() ?>

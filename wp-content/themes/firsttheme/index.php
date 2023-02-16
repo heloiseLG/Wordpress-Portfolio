@@ -3,6 +3,7 @@
 <H1>Formulaire de contact</H1>
 <?php the_content() ?>
 
+
 <?php } else {
   get_header();
 

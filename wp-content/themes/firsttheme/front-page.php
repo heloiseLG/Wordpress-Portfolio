@@ -1,58 +1,79 @@
 <?php get_header() ?>
 
 <?php while (have_posts()) : the_post() ?>
-<!--
-    <div id="carousel" class="carousel slide">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.pexels.com/photos/796602/pexels-photo-796602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Bienvenu</h5>
-                    <p>Voici notre portfolio.</p>
-                </div>
+
+  <?php the_content() ?>
+
+
+
+  <div class="container">
+    <div class="main-timeline">
+      <?php
+      // check for rows (parent repeater)
+      if (have_rows('timeline')) : ?>
+        <?php
+
+        // loop through rows (parent repeater)
+        while (have_rows('timeline')) : the_row(); ?>
+          <div class="timeline">
+            <div class="icon"></div>
+            <div class="date-content">
+              <div class="date-outer">
+                <span class="date">
+                  <span class="month">1 Years</span>
+                  <span class="year"><?php the_sub_field('annee'); ?></span>
+                </span>
+              </div>
             </div>
-            <div class="carousel-item">
-                <img src="https://images.pexels.com/photos/796602/pexels-photo-796602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.pexels.com/photos/796602/pexels-photo-796602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+              <div class="timeline-content">
+                <h5 class="title"><?php the_sub_field('time_titre'); ?></h5>
+                <?php
+            // check for rows (sub repeater)
+            if (have_rows('events')) : ?>
+            <?php
+
+                // loop through rows (sub repeater)
+                while (have_rows('events')) : the_row();
+
+                  // display each item as a list - with a class of completed ( if completed )
+                ?>
+                  <p><?php the_sub_field('event'); ?></p>
+                <?php endwhile; ?>
+              </div>
+            <?php endif; ?>
+          </div>
+        <?php endwhile; // while( has_sub_field('to-do_lists') ): 
+        ?>
+      <?php endif; ?>
     </div>
-   -->
+  </div>
 
 
 
+  <div class="flex-parent-element">
+    <?php
+    // Check rows existexists.
+    if (have_rows('youtube')) :
+      // Loop through rows.
+      while (have_rows('youtube')) : the_row();
+        // Load sub field value.
+        $epitech = get_sub_field('epitech');
+        $wis = get_sub_field('wis'); ?>
 
-    <!-- <hr class="featurette-divider">Ligne  -->
+        <div class="flex-child-element">
+          <?php echo $epitech; ?>
+        </div>
+        <div class="flex-child-element">
+          <?php echo $wis; ?>
+        </div>
+    <?php endwhile;
 
-<style>
-body{
-    font-family: opensans;
-}    
-</style>
-    <?php the_content() ?>
+    // No value.
+    else :
+    // Do something...
+    endif; ?>
+  </div>
+<?php endwhile; // end of the loop. 
+?>
 
-<?php endwhile; ?>
 <?php get_footer() ?>
